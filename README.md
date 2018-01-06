@@ -1,4 +1,4 @@
-# vuex-playlist
+# Simple weather app using OpenWeatherMap Forecast API and Vue.js on frontend..
 
 > A Vue.js project
 
