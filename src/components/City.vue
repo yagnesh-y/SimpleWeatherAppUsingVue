@@ -6,11 +6,11 @@
         <div id="main-card">
             <div v-for="data in todayData" id="today">
                 <div id="today-temp-day">
-                    <p>{{data.temp.day}}</p>
+                    <p>{{data.temp.day}}&deg;C</p>
                 </div>
                 <div id="forecast">
-                    <p id="today-temp-min">{{data.temp.min}}</p>
-                    <p id="today-temp-max">{{data.temp.max}}</p>
+                    <p id="today-temp-min">{{data.temp.min}}&deg;C</p>
+                    <p id="today-temp-max">{{data.temp.max}}&deg;C</p>
                 </div>
             </div>
         </div>
@@ -20,11 +20,11 @@
             <div id="card" v-for="datas in forecastData">
                 <div id="forecast-days">
                     <div id="forecast-days-day">
-                        <p>{{datas.temp.day}}</p>
+                        <p>{{datas.temp.day}}&deg;C</p>
                     </div>
                     <div id="forecast-days-forecast">
-                        <p>{{datas.temp.min}} </p>
-                        <p>{{datas.temp.max}}</p>
+                        <p>{{datas.temp.min}}&deg;C</p>
+                        <p>{{datas.temp.max}}&deg;C</p>
                     </div>
                 </div>
             </div>
@@ -51,9 +51,9 @@
                 this.todayData = res.splice(0, 1)
                 this.forecastData = res;
             }, (err) => {
-                console.log(';error in calling appi...')
+                console.log('Some error in calling api...')
                 console.log(err)
-                this.temp = 'Some error in retreving temp info..'
+                this.todayData = 'Some error in retrieving temp forecast info..'
             })
         },
         methods: {}
