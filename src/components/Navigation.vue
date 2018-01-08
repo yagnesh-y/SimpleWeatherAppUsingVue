@@ -25,15 +25,16 @@ li{
     margin: 0 10px;
 }
 a{
-    color: #fff;
+    color: black;
     text-decoration: none;
     padding: 12px;
     border-radius: 5px;
 }
 nav{
-    background: grey;
+    background: #ecf0f1;
     padding: 30px 0;
     margin-bottom: 40px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .router-link-active{
     background: rgba(255,255,255,0.8);

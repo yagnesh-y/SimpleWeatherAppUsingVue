@@ -30,5 +30,27 @@
 </script>
 
 <style scoped>
+body{
+    margin: 0 auto;
+}
+input[type="text"]{
+    
+    display: block;
+    margin: 0 auto;
+    padding: 4px 8px;
+    border: 1px solid black;
+}
+
+button{
+    display: block;
+    margin: 15px auto;
+    padding: 3px 10px;
+    border: 1px solid black;
+}
+
+h2{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 </style>

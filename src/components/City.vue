@@ -4,13 +4,21 @@
             <h1>{{name}}</h1>
         </div>
         <div id="main-card">
-            <div v-for="data in todayData" id="today">
-                <div id="today-temp-day">
-                    <p>{{data.temp.day}}&deg;C</p>
+            <!-- check if any errors from API else render Weather report from API-->
+            <div v-if="todayData.length > 0">
+                <div v-for="data in todayData" id="today">
+                    <div id="today-temp-day">
+                        <p>{{data.temp.day}}&deg;C</p>
+                    </div>
+                    <div id="forecast">
+                        <p id="today-temp-min">{{data.temp.min}}&deg;C</p>
+                        <p id="today-temp-max">{{data.temp.max}}&deg;C</p>
+                    </div>
                 </div>
-                <div id="forecast">
-                    <p id="today-temp-min">{{data.temp.min}}&deg;C</p>
-                    <p id="today-temp-max">{{data.temp.max}}&deg;C</p>
+            </div>
+            <div v-else="todayData.length ===0">
+                <div id="today-temp-day">
+                    <p>'Some error in retrieving Weather report..'</p>
                 </div>
             </div>
         </div>
@@ -53,7 +61,7 @@
             }, (err) => {
                 console.log('Some error in calling api...')
                 console.log(err)
-                this.todayData = 'Some error in retrieving temp forecast info..'
+                //this.todayData = 'Some error in retrieving temp forecast info..'
             })
         },
         methods: {}
@@ -87,7 +95,6 @@
 }
 
 #forecast{
-    //text-align: right;
     font-size: 2em;
     margin: 20px 0px 20px 80px;
 }

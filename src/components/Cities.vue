@@ -1,6 +1,6 @@
 <template>
     <div id="cities">
-        <h2>Cities: </h2>
+        <h1>Cities</h1>
         <ul v-for="city in cities">
             <li>
                 <router-link v-bind:to="'/cities/' +city.name" @click="handleSearch(city.name)" exact>{{city.name}}</router-link>
@@ -31,9 +31,18 @@
 
 <style scoped>
 #cities{
-    background: #FFF8B1;
-    box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
     margin-bottom: 30px;
     padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+h1{
+    text-align: center;
+}
+li{
+    margin: 0px 0px 0px -40px;
+    list-style-type: none;
+    text-align: center;
+}
+
 </style>
