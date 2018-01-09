@@ -4,6 +4,7 @@
         <ul v-for="city in cities">
             <li>
                 <router-link v-bind:to="'/cities/' +city.name" @click="handleSearch(city.name)" exact>{{city.name}}</router-link>
+                <span @click="removeCity(city.name)">&#10006;</span>
             </li>
         </ul>
     </div>
@@ -22,9 +23,11 @@
             cities() {
                 return this.$store.state.cities;
             },
-        ...mapGetters([
-            'showCities'
-        ])
+        },
+        methods: {
+             ...mapActions([
+                'removeCity'
+            ])
         }
     }
 </script>
