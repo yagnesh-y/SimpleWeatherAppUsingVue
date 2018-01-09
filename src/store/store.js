@@ -15,13 +15,28 @@ export const store = new Vuex.Store({
   },
   mutations: {
     addCity: (state, payload) => {
-      state.cities.push({ name: payload });
-      console.log(state.cities);
+      //add only if city doesnt already exists..
+      var bool = false;
+      state.cities.map(city => {
+        if (city.name === payload) bool = true;
+      });
+      return bool
+        ? console.log('oops this city is already added..')
+        : state.cities.push({ name: payload });
+    },
+    removeCity: (state, payload) => {
+      var newCities = Object.assign([], state.cities);
+      state.cities = newCities.filter(city => {
+        return city.name === payload ? false : true;
+      });
     }
   },
   actions: {
     addCity: (context, payload) => {
       context.commit('addCity', payload);
+    },
+    removeCity: (context, payload) => {
+      context.commit('removeCity', payload);
     }
   }
 });
