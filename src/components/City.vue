@@ -4,7 +4,7 @@
             <h1>{{name}}</h1>
         </div>
         <div id="main-card">
-            <!-- check if any errors from API else render Weather report from API-->
+            <!-- check if no errors from API and todayData.length > 0 i.e results retreived from API-->
             <div v-if="todayData.length > 0">
                 <div v-for="data in todayData" id="today">
                     <div id="today-temp-day">
@@ -16,9 +16,10 @@
                     </div>
                 </div>
             </div>
+            <!-- if any no results retreived from API...render the below to screen.. -->
             <div v-else="todayData.length ===0">
                 <div id="today-temp-day">
-                    <p>'Some error in retrieving Weather report..'</p>
+                    <p>{{error}}</p>
                 </div>
             </div>
         </div>
@@ -27,6 +28,9 @@
             <!-- Four cards to display the forecast..-->
             <div id="card" v-for="datas in forecastData">
                 <div id="forecast-days">
+                    <div id="forecast-days-date">
+                        <p>{{new Date(datas.dt*1000).getDate()}}<sup>th</sup></p>
+                    </div>
                     <div id="forecast-days-day">
                         <p>{{datas.temp.day}}&deg;C</p>
                     </div>
@@ -48,20 +52,27 @@
             return {
                 name: this.$route.params.name,
                 todayData: [],
-                forecastData: []
+                forecastData: [],
+                error: ''
             }
         },
         created() {
             console.log('created....')
             openWeatherMap.getTemp(this.name).then((res) => {
-                console.log('success in calling api..')
+                //check if city found or not found in the API...
+                console.log('city found & success in calling api..')
                 console.log(res)
                 this.todayData = res.splice(0, 1)
                 this.forecastData = res;
+
+                /*//return code 404 for city not found exception...
+
+                console.log('no city found..')
+                this.error = res.message;*/
             }, (err) => {
-                console.log('Some error in calling api...')
-                console.log(err)
-                //this.todayData = 'Some error in retrieving temp forecast info..'
+                console.log('Some error in getting respose from API..')
+                console.log(err.message)
+                this.error = err.message;
             })
         },
         methods: {}
@@ -78,7 +89,8 @@
 
 #cards, #main-card{
     display: flex;
-    justify-content: space-around;    
+    justify-content: space-around;
+    flex: 1;  
 }
 
 #card{
@@ -113,6 +125,10 @@
 
 #forecast-days-day{
     font-size: 2em;
+}
+#forecast-days-date{
+font-size: 1.2em;
+
 }
 
 </style>
