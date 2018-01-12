@@ -2,13 +2,13 @@
     <div id="home">
         <h2>Add new Cities</h2>
         <input type="text" v-model:value="newCity" placeholder="add new city name">
-        <button @click="addCity(newCity)">Add Cities</button>
+        <button @click="checkCity">Add Cities</button>
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import openWeatherMap from '../api/Weather'
 
     export default {
         data() {
@@ -16,15 +16,21 @@
                 newCity: 'some city name'
             }
         },
-        computed: {
-        ...mapGetters([
-            'showCities'
-        ])
-        },
         methods: {
         ...mapActions([
             'addCity'
-        ])
+        ]),
+            //method to check if the city entered by user is a valid user or not.
+            checkCity: function () {
+                openWeatherMap.getTemp(this.newCity).then((res) => {
+                    //if success in calling api then we are adding city to the store...
+                    this.addCity(this.newCity);
+                    alert('city added..')
+                }, (err) => {
+                    //alert the error to enter a valid city name if city not found exception..
+                    if (err.message === 'City not found..') alert('Enter valid city name..')
+                })
+            }
         }
     }
 </script>
