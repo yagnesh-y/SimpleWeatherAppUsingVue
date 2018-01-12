@@ -29,7 +29,7 @@
             <div id="card" v-for="datas in forecastData">
                 <div id="forecast-days">
                     <div id="forecast-days-date">
-                        <p>{{new Date(datas.dt*1000).getDate()}}<sup>th</sup></p>
+                        <p>{{new Date(datas.dt*1000).getDate()}}/{{new Date(datas.dt*1000).getMonth()+1}}/{{new Date(datas.dt*1000).getFullYear()}}</p>
                     </div>
                     <div id="forecast-days-day">
                         <p>{{datas.temp.day}}&deg;C</p>
@@ -53,46 +53,35 @@
                 name: this.$route.params.name,
                 todayData: [],
                 forecastData: [],
-                error: ''
+                error: '',
+                unix: ''
             }
         },
         created() {
             console.log('created....')
             openWeatherMap.getTemp(this.name).then((res) => {
-                //check if city found or not found in the API...
-                console.log('city found & success in calling api..')
-                console.log(res)
                 this.todayData = res.splice(0, 1)
                 this.forecastData = res;
-
-                /*//return code 404 for city not found exception...
-
-                console.log('no city found..')
-                this.error = res.message;*/
             }, (err) => {
-                console.log('Some error in getting respose from API..')
-                console.log(err.message)
                 this.error = err.message;
             })
-        },
-        methods: {}
+        }
     }
 </script>
 
 <style>
+
 #today-temp{
     margin: 0 auto;
     text-align: center;
     font-size: 1.2em;
     font-weight: 300;
 }
-
 #cards, #main-card{
     display: flex;
     justify-content: space-around;
     flex: 1;  
 }
-
 #card{
   height: 100px;
   background: #f1f1f1;
@@ -101,34 +90,28 @@
   flex: 1;
   
 }
-
 #card:hover{
    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-
 #forecast{
     font-size: 2em;
     margin: 20px 0px 20px 80px;
 }
-
 #today-temp-day{
     font-size: 4.5em;
     font-weight: 100;
     color:grey;
     text-align: center;
 }
-
 #forecast-days, #today{
     display: flex;
     justify-content: space-around
 }
-
 #forecast-days-day{
     font-size: 2em;
 }
 #forecast-days-date{
 font-size: 1.2em;
-
 }
 
 </style>
