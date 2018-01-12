@@ -8,14 +8,9 @@ export default {
       encodedLocation +
       '&appid=ae4b1b3a99c4accda74fa3592c357a1a&units=metric&cnt=5';
     return axios.get(OPEN_WEATHER_URI).then(res => {
-      console.log('in api res is ');
-      console.log(res);
       //send the 5 day forecast...
       return res.data.list;
     }, function(res) {
-      //check if city found...
-      console.log('in api error is ');
-      console.log(JSON.stringify(res));
       //check if any reponse in error i.e city not found..
       if (res.response) {
         if (res.response.data.message === 'city not found')
